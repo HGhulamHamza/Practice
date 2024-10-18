@@ -18,7 +18,8 @@ app.use(cors({
 }));
 
 
-app.use(express.json());
+app.use('/api', userRoutes); // This means the routes are prefixed with /api
+
 
 const PORT = process.env.PORT || 4000;
 
