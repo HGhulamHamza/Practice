@@ -9,7 +9,7 @@ dotenv.config(); // Load environment variables
 const app = express();
 
 app.use(cors({
-  origin: 'http://127.0.0.1:5173', // Frontend running with IP
+  origin: 'https://practice-h93u.vercel.app/', // Frontend running with IP
   credentials: true,
 }));
 
