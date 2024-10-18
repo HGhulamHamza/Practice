@@ -8,32 +8,41 @@ dotenv.config(); // Load environment variables
 
 const app = express();
 
+// Middleware
+app.use(express.json()); // To parse incoming JSON requests
 
+// CORS setup
 app.use(cors({
   origin: [
-     'http://127.0.0.1:5173',// Local frontend during development
-    // 'https://your-frontend-deployment-url.vercel.app' // Vercel frontend URL
+    'http://127.0.0.1:5173', // Local frontend during development
+    // 'https://your-frontend-deployment-url.vercel.app' // Uncomment when using the deployed frontend
   ],
   credentials: true
 }));
 
-
-app.use('/api', userRoutes); // This means the routes are prefixed with /api
-
-
-const PORT = process.env.PORT || 4000;
-
 // MongoDB connection
-mongoose
-  .connect(process.env.MONGODB_ATLAS_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log('Connected to MongoDB Atlas'))
-  .catch((error) => console.error('Error connecting to MongoDB:', error.message));
+let isConnected = false;
+const connectToDatabase = async () => {
+  if (!isConnected) {
+    try {
+      await mongoose.connect(process.env.MONGODB_ATLAS_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      });
+      isConnected = true;
+      console.log('Connected to MongoDB Atlas');
+    } catch (error) {
+      console.error('Error connecting to MongoDB:', error.message);
+      throw error;
+    }
+  }
+};
+
+// Connect to MongoDB when the server starts
+connectToDatabase();
 
 // Routes
-app.use('/api', userRoutes);
+app.use('/api', userRoutes); // Prefix routes with /api
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -42,6 +51,12 @@ app.use((err, req, res, next) => {
   });
 });
 
+// Set the port from environment variables or default to 4000
+const PORT = process.env.PORT || 4000;
+
+// Start the server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+
+export default app; // For Vercel deployment
