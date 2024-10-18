@@ -1,0 +1,54 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f7f7f7;
+}
+
+.app-container {
+  max-width: 900px; /* Increase width */
+  padding: 20px;
+  background-color: white; /* Optional: for contrast */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color: rgb(68, 68, 173); /* Same color as the button */
+  font-family: cursive;
+}
+
+.table-container {
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%; /* Increase table width */
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: lightblue; /* Keep background for headings */
+  font-size: 18px;
+  font-weight: bold;
+}
+
+td {
+  font-size: 16px;
+}
+
+.MuiButton-contained {
+  background-color: rgb(68, 68, 173); /* Same color as h1 */
+  color: white;
+}

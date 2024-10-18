@@ -1,0 +1,9 @@
+
+.table-container {
+    width: 100%; /* Increase the width of the container */
+  }
+  
+  table {
+    width: 100%; /* Adjust the table width to fill the container */
+  }
+  
